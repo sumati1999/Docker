@@ -24,8 +24,9 @@ client(docker build(create docker images), docker run(create docker containers),
 docker client: it is primary way to communicate with docker daemon
 dockerfile: it contains instructions to create docker image
 First practical
-Run yum update
+Run sudo apt update
 Install docker
+sudo apt install docker.io -y
 Check docker status
 Sudo systemctl docker status
 To check is ready to use or not
