@@ -42,4 +42,67 @@ Docker hub  Docker login  docker push
 Docker images
 --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
+Django App deployment
+First install python
+Install django
+Install django admin
+Django admin startproject projectname it will create skeleton for app
+In settings.py we can store templates , database details, ips, secret keys
+In urls.py responsible for serving content
+So these is just skeleton of application
+So to create app run python manage.py startapp polls
+Views.py  action code it will create html file
+That html file we place in template folder from here content get served
+Devops engineer get a task to containerize django application
+To containerize application we need to start writing docker file
+Work dir  here we we store source code so it should be at one place
+Copy requirments.txt  python dependencies
+Copy devops  copied source code
+Using dependencies n source code we can form binary of an app
+Install python
+To download dependencies  pip install requirements.txt && \ 
+ cd devops
+when someone runs docker run both entrypoint n cmd used as starting command
+entrypoint  cannot change we can’t override value in docker image
+cmd  we can change value it is configurable  
+Second practical
+git clone  https://github.com/iam-veeramalla/Docker-Zero-to-Hero.git
+cd /home/ubuntu/Docker-Zero-to-Hero/examples/python-web-app
+docker build .
+docker images
+docker run –it dockerimageid  not working
+docker run -p 8000:8000 -it dockerimageid 
+http://54.88.96.139:8000/demo/
+
+dockerfile in this we are writing steps to build docker image
+but for running application we just need python runtime
+to install python dependencies we use Ubuntu image but it will overload n image size will became big so to avoid that we introduced new concept that is multi stage docker
+here suppose we divide our dockerfile into two parts 
+in first part we write FROM Ubuntu as Build
+first part 
+FROM Ubuntu as build
+Run python install  this binary we can directly use in second part to reduce size just the content required for runtime that we carry from here
+Second part
+From python (we can take image having just python runtime)
+Copy --from build
+CMD
+First part will not be there in final image it’s only there in build image
+Final stage will just have runtime + binary that we build in stage first + executable(CMD)
+We can create countless stages in multistage docker build, there will be only one final stage which will be a minimalistic image
+Distroless  very minimalistic image
+By moving to multistage n distroless we are not only making sure that size is less but also it is secure n very less vulnerable to threats
+Previously while using Ubuntu images we were exposed to vulnerabilities , people may face somekind of issues so we move to distroless images if we using python application we can can move it to distroless image it only have python runtime not even have basic packages like ls cp n after impleting distroless image we can say our application not exposed to ops related vulnerabilities
+Third practical
+Cd /home/ubuntu/Docker/Docker-Zero-to-Hero/examples/golang-multi-stage-docker-build
+go run calculator.go
+cd dockerfile-without-multistage/
+docker build –t simplecalculator .
+docker image | head -5
+cd ..
+vi Dockerfile
+docker build -t withmutlistagedocker .
+docker image
+
+
+
 
