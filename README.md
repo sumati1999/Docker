@@ -102,7 +102,57 @@ cd ..
 vi Dockerfile
 docker build -t withmutlistagedocker .
 docker image
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 
-
+if container goes down then we can’t access files which were present on container so to overcome this issue bindmounts came into picture it will bind container dir with host dir
+volume it provides offer better life cycle, logical partition, create volume on hots that we can mount bind to container
+Fourth practical
+docker volume ls
+docker volume create sumati
+docker volume inspect sumati
+docker volume rm sumati
+mount volume on container
+cd /home/ubuntu/Docker-Zero-to-Hero/examples/first-docker-file
+docker build -t volume .
+docker images
+docker volume create sumati
+docker  run -d --mount source=sumati,target=/app volumedemo:latest
+docker inspect containerid
+to delete volume first stop,delete container
+Networking allows containers to talk with each other n with host system
+Eth0 network is by default created
+Whenever we create container the veth network created by default to talk with host which is called as bridge networking
+Host n container are in diff subnets so it’s connected using a bridge veth
+Host networking  whenever we create container it will bind it’s ip with eth0 of host, container will use host networking which is not secure, whoever has access to host they can access containers also which is not secure
+Overlay networking  if we have multiple hosts n we have to make cluster connect all this then we can use
+If we use default networking while connect two containers to host like we connecting to veth that id docker0 n connecting to docker but there is common path for hacker
+So we can create custom bridge network by using which that container talk with host so the common path is broken
+Fifth pratical
+We can directly run container in detached mode
+Docker run –d –name login nginx:latest
+Login to container
+Docker exec –it login /bin/bash/
+Install on conatianer  apt update, apt-get install iputils-ping –y
+Ping –V
+Run another container
+Docker run –d –name logout nginx:latest
+Docker ps
+Docker inspect containername
+Docker exec –it logout /bin/bash/
+Docker inspect containername
+Ping logoutip
+Docker network ls
+Create bridge network  Docker  bridge create secure-network
+Docker network ls
+Assigning secure-network to finance container
+Docker run –d –name finance  –network=secure-network  nginx:latest
+Docker ps
+Docker inspect containername
+Docker inspect logout
+Try to ping finance from login container
+Docker run –d –name host-demo –network=host nginx:latest
+Docker ps
+Docker inspect host-demo
+ 
 
