@@ -1,0 +1,30 @@
+ 1  yum install docker -y
+    2  ps
+    3  docker version
+    4  service docker start
+    5  service docker status
+    6  service docker status
+    7  docker version
+    8  docker images
+    9  docker search ubuntu
+   10  docker search linux
+   11  docker pull amazonlinux
+   12  docker search linux
+   13  docker images
+   14  docker run amazonlinux
+   15  docker ps -a
+   16  docker run --name container1 amazonlinux
+   17  docker ps -a
+   18  docker run -it --name container1
+   19  docker run -it --name container2 amazonlinux
+   20  docker ps -a
+   21  docker ps
+   22  docker start container2
+   23  docker ps
+   24  docker ps -a
+   25  docker attach container2
+   26  docker images
+   27  docker commit container2 sumati:v1
+   28  docker images
+   29  docker run -it --name container3 sumati:v1
+   30  history
